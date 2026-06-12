@@ -104,3 +104,20 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local reference assets, do not upload to Git
+/[Aa]ssets/ProjectRef/
+/[Aa]ssets/ProjectRef.meta
+
+# Unity template tutorial/readme leftovers
+/.vsconfig
+/[Aa]ssets/TutorialInfo/
+/[Aa]ssets/TutorialInfo.meta
+/[Aa]ssets/Readme.asset
+/[Aa]ssets/Readme.asset.meta
+/[Aa]ssets/[Ss]cenes/SampleScene.unity
+/[Aa]ssets/[Ss]cenes/SampleScene.unity.meta
+
+# Embedded reference-only packages, keep manifest and lock files tracked
+/[Pp]ackages/com.unity.postprocessing/
+/[Pp]ackages/com.unity.postprocessing.meta
