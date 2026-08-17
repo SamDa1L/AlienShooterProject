@@ -105,13 +105,70 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
-# Local reference assets, do not upload to Git
-/[Aa]ssets/ProjectRef/
-/[Aa]ssets/ProjectRef.meta
+# 本地参考资源默认不上传；放行 Top Down Demo 所需控制器资源包
+/[Aa]ssets/ProjectRef/*
+!/[Aa]ssets/ProjectRef/
+!/[Aa]ssets/ProjectRef.meta
+!/[Aa]ssets/ProjectRef/Julhiecio TPS Controller/
+!/[Aa]ssets/ProjectRef/Julhiecio TPS Controller/**
 
-# Local art template/import pool, only selected assets move into Assets/Game/Art
-/[Aa]ssets/ArtTemplate/
+# 本地美术资源池默认不上传；仅放行 Top Down Demo 的精确依赖
+/[Aa]ssets/ArtTemplate/**
 /[Aa]ssets/ArtTemplate.meta
+!/[Aa]ssets/ArtTemplate/
+
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Materials/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Materials/Misc/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Materials/Misc/PolygonApocalypse_Material_Glass_01.mat*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Materials/PolygonApocalypse_Material_01_A.mat*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Models/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Models/SM_Bld_Apartment_01.fbx*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Prefabs/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Prefabs/Buildings/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Prefabs/Buildings/SM_Bld_Apartment_01.prefab*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Textures/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Textures/Misc/
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Textures/Misc/PolygonApocalypse_Emissive_01.png*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Textures/Misc/PolygonApocalypse_Normal.png*
+!/[Aa]ssets/ArtTemplate/4001_卡通末日生存场景/Textures/PolygonApocalypse_Texture_01_A.png*
+
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Materials/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Materials/PolygonNature_01.mat*
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Models/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Models/SM_Terrain_GrassEdge_01.fbx*
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Models/SM_Terrain_GrassEdge_04.fbx*
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Prefabs/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Prefabs/Terrain/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Prefabs/Terrain/SM_Terrain_GrassEdge_01.prefab*
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Prefabs/Terrain/SM_Terrain_GrassEdge_04.prefab*
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Textures/
+!/[Aa]ssets/ArtTemplate/4015_低面卡通自然资产/Textures/PolygonNature_01.png*
+
+!/[Aa]ssets/ArtTemplate/PolygonOffice/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Materials/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Materials/PolygonOffice_Material_01_A.mat*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Materials/PolygonOffice_Material_Glass.mat*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Bld_Wall_Baseboard_01.fbx*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Bld_Wall_Blank_Elevator_01.fbx*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Bld_Wall_Blank_Window_01.fbx*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Bld_Wall_Brick_01.fbx*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Prop_Bathroom_Sink_02.fbx*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Models/SM_Prop_Bathroom_Sink_02_Convex 1.asset*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Buildings/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Buildings/SM_Bld_Wall_Baseboard_01.prefab*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Buildings/SM_Bld_Wall_Blank_Elevator_01.prefab*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Buildings/SM_Bld_Wall_Blank_Window_01.prefab*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Buildings/SM_Bld_Wall_Brick_01.prefab*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Props/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Props/Bathroom/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Prefabs/Props/Bathroom/SM_Prop_Bathroom_Sink_02.prefab*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Textures/
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Textures/Emissive_01.png*
+!/[Aa]ssets/ArtTemplate/PolygonOffice/Textures/PolygonOffice_Texture_01_A.png*
 
 # Local temporary test scripts/tools, do not upload to Git
 /[Aa]ssets/TmpTests/
@@ -126,6 +183,8 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]cenes/SampleScene.unity
 /[Aa]ssets/[Ss]cenes/SampleScene.unity.meta
 
-# Embedded reference-only packages, keep manifest and lock files tracked
-/[Pp]ackages/com.unity.postprocessing/
-/[Pp]ackages/com.unity.postprocessing.meta
+# Top Down Demo 所需的嵌入式后处理包
+/[Pp]ackages/com.unity.postprocessing/*
+!/[Pp]ackages/com.unity.postprocessing/
+!/[Pp]ackages/com.unity.postprocessing/**
+!/[Pp]ackages/com.unity.postprocessing.meta
