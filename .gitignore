@@ -109,6 +109,14 @@ InitTestScene*.unity*
 /[Aa]ssets/ProjectRef/
 /[Aa]ssets/ProjectRef.meta
 
+# Local art template/import pool, only selected assets move into Assets/Game/Art
+/[Aa]ssets/ArtTemplate/
+/[Aa]ssets/ArtTemplate.meta
+
+# Local temporary test scripts/tools, do not upload to Git
+/[Aa]ssets/TmpTests/
+/[Aa]ssets/TmpTests.meta
+
 # Unity template tutorial/readme leftovers
 /.vsconfig
 /[Aa]ssets/TutorialInfo/

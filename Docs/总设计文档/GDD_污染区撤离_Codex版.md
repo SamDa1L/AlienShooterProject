@@ -189,9 +189,12 @@ Height Axis: Y
 
 ```text
 Assets/
-  _Project/
+  ArtTemplate/
+    临时美术资源池，用于导入和筛选大量外部美术资源，不作为正式业务目录，不上传 Git。
+  Game/
     Art/
       Characters/
+        Player/
       Enemies/
       HumanEnemies/
       Weapons/
@@ -201,6 +204,8 @@ Assets/
         Map_Factory/
         Map_Town/
       VFX/
+        BloodFeedback/
+        CombatFeedback/
       UI/
       Icons/
     Audio/
@@ -216,11 +221,14 @@ Assets/
       Enemies/
       HumanEnemies/
       Weapons/
+      Ammo/
       Loot/
       Consumables/
+      Equipment/
       Strongholds/
       Extraction/
       UI/
+      VFX/
     Scenes/
       Boot.unity
       MainMenu.unity
@@ -230,13 +238,20 @@ Assets/
       Raid_Town_01.unity
     Scripts/
       Core/
+      GameFlow/
       Player/
       Camera/
       Weapons/
+      Ballistics/
+      HitDetection/
       Enemies/
       HumanEnemies/
+      Spawning/
       Factions/
       Inventory/
+      Equipment/
+      Hotbar/
+      Storage/
       Loot/
       Consumables/
       Survival/
@@ -247,17 +262,26 @@ Assets/
       Strongholds/
       Missions/
       Base/
+      Maps/
+      ObjectPooling/
+      BloodFeedback/
+      CombatFeedback/
       Save/
+      Settings/
       UI/
       Audio/
+      DeveloperTools/
     ScriptableObjects/
+      GameFlow/
       Weapons/
       Attachments/
       Ammo/
       Enemies/
       HumanEnemies/
+      Spawning/
       Loot/
       Consumables/
+      Equipment/
       Survival/
       CharacterGrowth/
       Proficiency/
@@ -266,22 +290,47 @@ Assets/
       Strongholds/
       BaseUpgrades/
       ThreatLevels/
+      DropTables/
+      Difficulty/
+      Settings/
     Tests/
-      EditMode/
-      PlayMode/
+      VersionValidation/
+        VS_Combat.unity
+        FVS_Combat.unity
+      UI/
+      Combat/
+      Weapons/
+      Enemies/
+      Camera/
+      Input/
+      Systems/
+      Performance/
+  ProjectRef/
+    参考模板资源，只用于分析和临时验证，不作为正式业务目录，不上传 Git。
+  TmpTests/
+    临时测试代码、测试脚本和测试辅助工具，不作为正式业务目录，不上传 Git。
 ```
+
+说明：正式业务代码和正式资源统一放入 `Assets/Game`。`Assets/Game/Scenes` 只放正式场景，不放测试场景，正式场景命名不能出现 `Test`。`Assets/Game/Tests` 只放测试场景和测试场景所需场景级资源，不放测试代码。`Assets/TmpTests` 只放临时测试代码，不作为正式业务目录。`Assets/ProjectRef` 只作为参考资源区，不允许把参考项目命名体系扩散到正式业务代码。`Assets/ArtTemplate` 只作为临时美术资源池，只有确认使用的美术资源才整理后移动到 `Assets/Game/Art` 下对应目录。
 
 ### 3.5 命名空间建议
 
 ```csharp
 CZ.Core
+CZ.GameFlow
 CZ.Player
 CZ.Camera
 CZ.Weapons
+CZ.Ballistics
+CZ.HitDetection
 CZ.Enemies
 CZ.HumanEnemies
+CZ.Spawning
 CZ.Factions
 CZ.Inventory
+CZ.Equipment
+CZ.Hotbar
+CZ.Storage
 CZ.Loot
 CZ.Consumables
 CZ.Survival
@@ -292,9 +341,15 @@ CZ.Threat
 CZ.Strongholds
 CZ.Missions
 CZ.Base
+CZ.Maps
+CZ.ObjectPooling
+CZ.BloodFeedback
+CZ.CombatFeedback
 CZ.Save
+CZ.Settings
 CZ.UI
 CZ.Audio
+CZ.DeveloperTools
 ```
 
 ---
@@ -347,68 +402,169 @@ CZ.Audio
 
 ---
 
-## 5. MVP 垂直切片
+## 5. 多版本垂直切片
 
-### 5.1 MVP 目标
+V2.4 的版本推进不再只设置单一 MVP，而是按 `VS版本`、`FVS版本`、`MVP版本`、`CBT版本`、`Alpha版本`、`Beta版本`、`EA版本`、`正式上线版本` 逐步扩大范围。每个版本都必须继承前一版本的验证结果，再增加新模块或提升质量。
 
-MVP 的目标不是做完整首发，而是验证 V2.4 的核心闭环是否成立。
+### 5.1 版本推进链路
+
+```text
+VS版本
+-> FVS版本
+-> MVP版本
+-> CBT版本
+-> Alpha版本
+-> Beta版本
+-> EA版本
+-> 正式上线版本
+```
+
+### 5.2 VS版本目标
+
+`VS版本` 是最低调的基础验证版本，只用于验证俯视角核心操作是否成立。
+
+必须验证：
+
+1. 玩家移动是否顺手。
+2. 鼠标瞄准或基础朝向是否清楚。
+3. 基础射击是否能命中目标。
+4. 基础怪物是否能追踪玩家。
+5. 命中、扣血、死亡是否能形成最小反馈。
+6. 基础 HUD 是否能表达血量、弹药和准星。
+
+暂不包含：基地、搜打撤、仓库、人类据点、复杂生存、完整成长、正式任务和正式美术。
+
+### 5.3 FVS版本目标
+
+`FVS版本` 在 VS 版本基础上扩展基础战斗，用于验证五到十分钟战斗是否有爽感。
+
+必须验证：
+
+1. 二到三把武器是否有明显差异。
+2. 二到三种怪物是否形成基础压力。
+3. 基础刷怪节奏是否成立。
+4. 血迹、血雾、爆炸、击退等战斗反馈是否足够直接。
+5. 基础掉落和拾取是否能形成战斗奖励。
+6. 玩家是否愿意重复打一局。
+
+### 5.4 MVP版本目标
+
+`MVP版本` 才开始验证完整最小闭环，不要求首发内容完整，但必须验证出击、战斗、搜刮、撤离、结算、成长和再次出发。
 
 MVP 必须验证：
 
 ```text
 防空洞基地
--> 检查饥饿、口渴、疲劳
 -> 进入郊区农场
 -> 清怪
--> 攻打农场掠夺者据点
+-> 攻打小型农场掠夺者据点
 -> 搜刮食物、水、药品、武器、弹药
 -> 局内直接使用食物、水、药品
 -> 警戒值上升
 -> 撤离
 -> 回基地结算
+-> 整理仓库
 -> 获得经验
 -> 分配属性点
--> 改枪
+-> 简单改枪
 -> 休息恢复疲劳
 -> 再次出发
 ```
 
-### 5.2 MVP 内容范围
+### 5.5 MVP内容范围
 
 | 模块 | MVP 内容 |
 |---|---|
 | 基地 | 简版地下防空洞 UI，不做 3D 漫游 |
 | 地图 | 郊区农场灰盒地图 |
-| 据点 | 1 个农场掠夺者营地 |
+| 据点 | 1 个小型农场掠夺者营地 |
 | 资源点 | 农舍、谷仓、加油站、医疗箱、储物箱 |
 | 撤离点 | 防空洞入口、林地小路 |
 | 怪物 | 感染爬行者、感染犬类、膨胀自爆体 |
 | 人类敌人 | 掠夺者、哨兵、霰弹枪手 |
 | 武器 | 手枪、突击步枪、霰弹枪 |
-| 改装 | 8 个基础配件 |
-| 生存 | 饥饿、口渴、疲劳 |
+| 改装 | 基础配件雏形 |
+| 生存 | 饥饿、口渴、疲劳的最小实现 |
 | 可用物品 | 罐头、瓶装水、能量饮料、简易医疗包 |
 | 成长 | 角色等级、经验、五大属性雏形 |
 | 搜打撤 | 背包、仓库、撤离、死亡损失、结算 |
 | 警戒值 | 时间、开枪、据点警报、撤离触发增长 |
 | 存档 | 本地保存仓库、装备、任务、等级、状态 |
 
-### 5.3 MVP 验收标准
+### 5.6 CBT版本目标
 
-必须回答“是”的问题：
+`CBT版本` 用于小范围封闭测试，重点验证真实玩家是否理解流程并愿意重复游玩。
 
-1. 玩家移动和瞄准是否顺手？
-2. 三把枪是否有明显不同手感？
-3. 打怪是否爽？
-4. 血迹、血雾、爆炸、击退是否足够直接？
-5. 玩家是否能感受到“多搜一点”和“赶紧撤离”的取舍？
-6. 饥饿、口渴、疲劳是否形成轻量压力，但不烦人？
-7. 玩家是否能在局内吃罐头、喝水、用医疗包、喝能量饮料？
-8. 玩家是否会纠结“现在用掉补给，还是带回基地”？
-9. 人类据点是否带来不同于怪潮的战斗体验？
-10. 是否能引怪攻击人类据点，形成三方混战雏形？
-11. 撤离倒计时是否能形成高潮？
-12. 成功撤离后是否想回基地改枪、升级角色、再次出发？
+必须验证：
+
+1. 外部玩家不依赖开发者解释也能完成基础流程。
+2. 玩家能理解出击、搜刮、撤离、结算和死亡损失。
+3. 存档、仓库、撤离和结算没有高频阻断问题。
+4. 基础难度、资源收益和警戒值节奏不明显失衡。
+5. 玩家对武器手感、怪物压力和 UI 可读性有明确反馈。
+
+### 5.7 Alpha版本目标
+
+`Alpha版本` 用于把首发主要内容骨架全部串联起来，允许内容粗糙，但核心模块不能缺席。
+
+必须包含：
+
+1. 郊区农场、旧工业工厂、封锁小城镇的可玩骨架。
+2. 人类据点和三方冲突基础逻辑。
+3. 更多怪物、人类敌人、武器和配件。
+4. 初版任务链和地图推进路线。
+5. 更完整的生存资源、局内消耗品、人物成长和武器熟练度。
+
+### 5.8 Beta版本目标
+
+`Beta版本` 用于内容锁定后的整体打磨，原则上不再随意增加大型系统。
+
+重点工作：
+
+1. 修复主要 Bug。
+2. 优化性能和加载。
+3. 平衡武器、敌人、掉落、经济和生存消耗。
+4. 完成新手引导、设置菜单、UI 可读性和主要音效反馈。
+5. 准备 Steam 页面素材、截图和预告片。
+
+### 5.9 EA版本目标
+
+`EA版本` 用于 Steam 抢先体验，需要稳定、可重复游玩，并能支撑持续更新。
+
+必须具备：
+
+1. 可付费游玩的稳定版本。
+2. 清晰更新路线图。
+3. 社区反馈收集机制。
+4. 持续补丁计划。
+5. 正式上线前内容补齐清单。
+
+### 5.10 正式上线版本目标
+
+正式上线版本是完整商业交付版本。
+
+必须完成：
+
+1. 首发三张大地图。
+2. 首发主要敌人、据点和 Boss。
+3. 首发武器、配件和改装。
+4. 首发任务内容。
+5. 完整搜打撤、生存、成长、仓库、基地和撤离系统。
+6. 新手引导、设置、成就、存档和平台适配。
+7. Steam 商店、宣传图、预告片和发售文案。
+
+### 5.11 多版本验收标准
+
+必须逐步回答“是”的问题：
+
+1. `VS版本`：玩家移动、瞄准、射击、打怪是否顺手？
+2. `FVS版本`：五到十分钟战斗是否有爽感和重复游玩动力？
+3. `MVP版本`：玩家是否能完成一次出击、搜刮、撤离、结算和再次出发？
+4. `CBT版本`：外部玩家是否能理解流程并稳定游玩？
+5. `Alpha版本`：首发主要模块是否全部串联？
+6. `Beta版本`：内容是否基本锁定，性能和数值是否进入可发布状态？
+7. `EA版本`：公开玩家反馈是否支撑继续优化和更新？
+8. `正式上线版本`：游戏是否达到完整首发商业交付质量？
 
 ---
 
@@ -2557,4 +2713,3 @@ Steam 页面卖点建议突出：
 6. 是否能在 50 万预算和小团队能力内完成？
 
 如果答案是否定，则延后或删除。
-
